@@ -37,7 +37,7 @@ def predict(request: PredictRequest) -> PredictResponse:
 
     # You receive the entire game state in the request object.
     # Read the game state and decide what to do in the next game tick.
-
+    print(request)
     if request.did_crash:
         logger.info(f'Crashed after {request.elapsed_time_ms} ms')
 
