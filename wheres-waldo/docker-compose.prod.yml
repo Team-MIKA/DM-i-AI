@@ -1,0 +1,29 @@
+
+version: "3"
+services:
+  emily-wheres-waldo-c2mvvc-prod:
+    image: emily-wheres-waldo-c2mvvc-prod
+    container_name: emily-wheres-waldo-c2mvvc-prod
+    command: python3 ${MAIN} -e ".prod.env"
+    restart: always
+    ports:
+      - ${HOST_PORT}:${CONTAINER_PORT}
+    networks:
+      - emily-wheres-waldo-c2mvvc-prod-network
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/workspace:cached
+      - ./:/workspace/data
+
+    runtime: ${RUNTIME}
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES}
+    ipc: ${IPC}
+networks:
+  emily-wheres-waldo-c2mvvc-prod-network:
+    name: emily-wheres-waldo-c2mvvc-prod-network
+    driver: bridge
+  
